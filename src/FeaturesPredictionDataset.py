@@ -18,23 +18,33 @@ class FeaturesPredictionDataset(Dataset):
         return len(self.data.index)
 
     def __getitem__(self, index):
-        # Read input target
-        target_path = self.targets_paths[index]
-        target = mpimg.imread(target_path).astype(float)
+        # INPUT
+        # read input
+        input_path = self.data["Chemin"].iloc[index]
+        input_plant = mpimg.imread(input_path).astype(float)
 
-        # Crop input target
+        # crop input target
         if self.crop_size > 0:
-            target = trfs.random_crop(target, self.crop_size, self.crop_size)
+            input_plant = trfs.random_crop(input_plant, self.crop_size, self.crop_size)
 
-        # Normalize input
-        target = trfs.normalize(target)
+        # normalize input
+        input_plant = trfs.normalize(input_plant)
 
-        # Transform to tensor
-        tensor_input = torch.as_tensor(np.array([noisy_input]), dtype=torch.float)
-        tensor_target = torch.as_tensor(np.array([target]), dtype=torch.float)
+        # transform to tensor
+        tensor_input = torch.as_tensor(np.array([input_plant]), dtype=torch.float)
 
-        return tensor_noisy_input, tensor_target
+        # TARGET
+        # read target
+        target = np.array([
+            self.data["Bord"].iloc[index],
+            self.data["Phyllotaxie"].iloc[index],
+            self.data["Type_feuille"].iloc[index],
+            self.data["Ligneux"].iloc[index],
+        ])
+        tensor_target = torch.as_tensor(target)
+
+        return tensor_input, tensor_target
 
 if __name__ == '__main__':
-    dataset = FeaturesPredictionDataset('dataset/Test.csv', crop_size=80)
-    print(len(dataset))
+    dataset = FeaturesPredictionDataset('../dataset/Test.csv', crop_size=80)
+    print(dataset[1])
