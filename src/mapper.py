@@ -53,8 +53,8 @@ if __name__ == "__main__":
     classes_df = pd.DataFrame(classes)
     print(classes_df)
 
-    dataset = "dataset/Test"
+    dataset = "../dataset/Test"
     mapped = mapper(dataset, classes_df).set_index('Chemin').to_csv(dataset + ".csv")
-    dataset = "dataset/Train"
+    dataset = "../dataset/Train"
     mapped = mapper(dataset, classes_df).set_index('Chemin').to_csv(dataset + ".csv")
 
