@@ -21,7 +21,7 @@ if __name__ == "__main__":
     from matplotlib import image as mpimg
 
 
-    image = mpimg.imread("/home/obergam/Data/flir/images_thermal_train/video-zNFzcc9wW8XB4QwTa-frame-011398-BnmWrvMFmpcrPWRdk.jpg")
+    image = mpimg.imread("../dataset/Test/amborella/amborella071.jpg")
     plt.figure(0)
     plt.imshow(image)
     cropped_image = random_crop(image, 82, 82)
