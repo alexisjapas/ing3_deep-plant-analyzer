@@ -22,6 +22,7 @@ class FeaturesPredictionDataset(Dataset):
         # read input
         input_path = self.data["Chemin"].iloc[index]
         input_plant = mpimg.imread(input_path).astype(float)
+        input_plant = trfs.rgb2gray(input_plant)
 
         # crop input target
         if self.crop_size > 0:
@@ -41,7 +42,7 @@ class FeaturesPredictionDataset(Dataset):
             self.data["Type_feuille"].iloc[index],
             self.data["Ligneux"].iloc[index],
         ])
-        tensor_target = torch.as_tensor(target)
+        tensor_target = torch.as_tensor(target, dtype=torch.float)
 
         return tensor_input, tensor_target
 

@@ -16,6 +16,10 @@ def normalize(image):
     return (image - np.min(image)) / (np.max(image) - np.min(image))
 
 
+def rgb2gray(rgb):
+        return np.dot(rgb[...,:3], [0.2989, 0.5870, 0.1140])
+
+
 if __name__ == "__main__":
     from matplotlib import pyplot as plt
     from matplotlib import image as mpimg
