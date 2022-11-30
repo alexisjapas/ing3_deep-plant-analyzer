@@ -1,8 +1,6 @@
 from random import randint
 import numpy as np
 
-import transformers as trfs
-
 
 def random_crop(image, y_dim, x_dim):
     y_top = randint(0, image.shape[0] - y_dim)
@@ -13,11 +11,14 @@ def random_crop(image, y_dim, x_dim):
 
 
 def normalize(image):
-    return (image - np.min(image)) / (np.max(image) - np.min(image))
+    if np.min(image) == np.max(image):
+        print(np.min(image), np.max(image))
+    normalized = (image - np.min(image)) / (np.max(image) - np.min(image))
+    return normalized
 
 
 def rgb2gray(rgb):
-        return np.dot(rgb[...,:3], [0.2989, 0.5870, 0.1140])
+    return np.dot(rgb[...,:3], [0.2989, 0.5870, 0.1140])
 
 
 if __name__ == "__main__":

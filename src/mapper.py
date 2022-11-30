@@ -3,6 +3,15 @@ from os import listdir
 from os.path import join, isdir, isfile, basename
 
 
+def apply_function(root_path, function, save_path=None, current_path=None):
+    image_paths = [join(fold, file) for file in listdir(fold) if isfile(join(fold, file))]
+    for image in image_paths:
+        image = function(image)
+        if save_path:
+
+
+
+
 def mapper(root_path: str, classes: pd.DataFrame) -> pd.DataFrame:
     # Initiates mapper
     mapper_dict = {

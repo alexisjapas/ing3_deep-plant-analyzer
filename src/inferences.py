@@ -1,12 +1,12 @@
 import torch
 import numpy as np
 
-import transformers as trfs
+import utils
 
 
 def infer(image, model, device="cpu"):
     # Working on input image
-    image = trfs.normalize(image)
+    image = utils.normalize(image)
     image = torch.as_tensor(np.array([image]), dtype=torch.float).to(device)
     model.eval()
     with torch.no_grad():

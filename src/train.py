@@ -8,7 +8,13 @@ def train(dataloader, model, loss_fn, optimizer, device):
         X, y = X.to(device), y.to(device)
 
         # Compute prediction error
-        pred = model(X)
+        try:
+            pred = model(X)
+        except:
+            print(X)
+            print(X.shape)
+            print(X.min())
+            print(X.max())
         loss = loss_fn(pred, y)
 
         # Backpropagation

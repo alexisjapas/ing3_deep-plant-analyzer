@@ -6,7 +6,7 @@ import numpy as np
 from random import uniform
 import pandas as pd
 
-import transformers as trfs
+import utils
 
 
 class FeaturesPredictionDataset(Dataset):
@@ -22,14 +22,14 @@ class FeaturesPredictionDataset(Dataset):
         # read input
         input_path = self.data["Chemin"].iloc[index]
         input_plant = mpimg.imread(input_path).astype(float)
-        input_plant = trfs.rgb2gray(input_plant)
+        input_plant = utils.rgb2gray(input_plant)
+
+        # normalize input
+        input_plant = utils.normalize(input_plant)
 
         # crop input target
         if self.crop_size > 0:
-            input_plant = trfs.random_crop(input_plant, self.crop_size, self.crop_size)
-
-        # normalize input
-        input_plant = trfs.normalize(input_plant)
+            input_plant = utils.random_crop(input_plant, self.crop_size, self.crop_size)
 
         # transform to tensor
         tensor_input = torch.as_tensor(np.array([input_plant]), dtype=torch.float)
@@ -47,5 +47,10 @@ class FeaturesPredictionDataset(Dataset):
         return tensor_input, tensor_target
 
 if __name__ == '__main__':
-    dataset = FeaturesPredictionDataset('../dataset/Test.csv', crop_size=80)
-    print(dataset[1])
+    from tqdm import tqdm
+    print("start")
+    dataset = FeaturesPredictionDataset('../dataset/Train.csv', crop_size=40)
+    for i in range(10):
+        for data in tqdm(dataset):
+            pass
+    print("end")
