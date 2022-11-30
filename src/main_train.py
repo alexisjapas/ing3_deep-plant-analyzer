@@ -22,14 +22,14 @@ crop_size = 84
 train_dataset = FeaturesPredictionDataset(train_data_path, crop_size)
 
 # dataloader
-batch_size = 16
+batch_size = 4
 train_dataloader = DataLoader(train_dataset, batch_size=batch_size, num_workers=8, shuffle=True, pin_memory=True)
 for inputs, targets in train_dataloader: # DEBUG
     print(inputs.shape, targets.shape)
     break
 
 # model
-model = FlatCNN(crop_size, 1, 32, 8, 4).to(device)
+model = FlatCNN(crop_size, 1, 64, 20, 4).to(device)
 print(model)
 
 # train
