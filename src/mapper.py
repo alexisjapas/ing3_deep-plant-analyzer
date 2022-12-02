@@ -8,8 +8,7 @@ def apply_function(root_path, function, save_path=None, current_path=None):
     for image in image_paths:
         image = function(image)
         if save_path:
-
-
+            pass
 
 
 def mapper(root_path: str, classes: pd.DataFrame) -> pd.DataFrame:
@@ -62,8 +61,8 @@ if __name__ == "__main__":
     classes_df = pd.DataFrame(classes)
     print(classes_df)
 
-    dataset = "../dataset/Test"
+    dataset = "../preprocessed_dataset/Test"
     mapped = mapper(dataset, classes_df).set_index('Chemin').to_csv(dataset + ".csv")
-    dataset = "../dataset/Train"
+    dataset = "../preprocessed_dataset/Train"
     mapped = mapper(dataset, classes_df).set_index('Chemin').to_csv(dataset + ".csv")
 

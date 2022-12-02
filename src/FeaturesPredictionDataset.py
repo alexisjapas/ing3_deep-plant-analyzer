@@ -22,7 +22,7 @@ class FeaturesPredictionDataset(Dataset):
         # read input
         input_path = self.data["Chemin"].iloc[index]
         input_plant = mpimg.imread(input_path).astype(float)
-        input_plant = utils.rgb2gray(input_plant)
+        #input_plant = utils.rgb2gray(input_plant)
 
         # normalize input
         input_plant = utils.normalize(input_plant)

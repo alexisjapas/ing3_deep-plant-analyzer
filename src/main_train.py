@@ -17,12 +17,12 @@ print(torch.version.cuda)
 print(torch.backends.cudnn.version())
 
 # dataset
-train_data_path = "../dataset/Train.csv"
+train_data_path = "../preprocessed_dataset/Train.csv"
 crop_size = 84
 train_dataset = FeaturesPredictionDataset(train_data_path, crop_size)
 
 # dataloader
-batch_size = 4
+batch_size = 8
 train_dataloader = DataLoader(train_dataset, batch_size=batch_size, num_workers=8, shuffle=True, pin_memory=True)
 for inputs, targets in train_dataloader: # DEBUG
     print(inputs.shape, targets.shape)
